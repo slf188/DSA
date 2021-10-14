@@ -8,16 +8,13 @@
 #include <iostream>
 #include "Array.h"
 #include "LinkedList.h"
+#include "CharLL.h"
 using namespace std;
 
 int main() {
-    push(10);
-    push(15);
-    push(8);
-    push(3);
-    
-    peek(2);
-    display();
+    char *exp = "((a+b)*(c-d))";
+   
+    cout << (isBalanced(exp) ? "True\n" : "False\n");
     
     return 0;
 }
