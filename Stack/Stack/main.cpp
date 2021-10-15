@@ -12,9 +12,7 @@
 using namespace std;
 
 int main() {
-    char *exp = "((a+b)*(c-d))";
-   
+    char const *exp = "{([a+b]*[c-d])/e}";
     cout << (isBalanced(exp) ? "True\n" : "False\n");
-    
     return 0;
 }

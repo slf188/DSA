@@ -36,7 +36,6 @@ void pop(){
         x = p->data;
         delete p;
     }
-    cout << "The deleted value is " << x << endl;
 }
 
 void peek(int position){

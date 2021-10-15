@@ -24,7 +24,7 @@ void push(char x){
     }
 }
 
-char popC(){
+void popC(){
     char x = -1;
     NodeC *p;
     if (topC == nullptr)
@@ -35,26 +35,21 @@ char popC(){
         x = p->data;
         delete p;
     }
-    return x;
 }
 
-int isEmptyC() {
-    return topC ? false : true;
-}
-
-int isBalanced(char *exp){
+int isBalanced(char const *exp){
     for(int i = 0; exp[i] != '\0'; i++){
-        if (exp[i] == '(')
+        if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
             push(exp[i]);
-        else if (exp[i] == ')'){
+        else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
             if (topC == NULL){
-                break;
+                return 0;
             }
             else
                 popC();
         }
     }
-    return isEmptyC() ? true : false;
+    return (top == NULL ? 1 : 0);
 }
 
 #endif /* CharLL_h */
