@@ -90,6 +90,30 @@
 //    cout << postfix;
 //}
 
+//int isBalanced(char const *exp){
+//    for(int i = 0; exp[i] != '\0'; i++){
+//        if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
+//            push(exp[i]);
+//        else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
+//            if (topC == NULL){
+//                return 0;
+//            }
+//            else
+//                popC();
+//        }
+//    }
+//    return (topC == NULL ? 1 : 0);
+//}
+
+//int precedence(char x){
+//    if (x == '+' || x == '-')
+//        return 1;
+//    else if (x == '*' || x == '/')
+//        return 2;
+//    else
+//        return 0;
+//}
+
 //void convertToPosfixS(char const *infix){
 //    int i = 0, j = 0;
 //    char *postfix = new char[strlen(infix) + 1];

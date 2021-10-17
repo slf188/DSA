@@ -42,38 +42,14 @@ char popC(){
     return x;
 }
 
-int isBalanced(char const *exp){
-    for(int i = 0; exp[i] != '\0'; i++){
-        if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
-            push(exp[i]);
-        else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
-            if (topC == NULL){
-                return 0;
-            }
-            else
-                popC();
-        }
-    }
-    return (topC == NULL ? 1 : 0);
-}
-
 int isOperand(char x){
-    if (x == '+' || x == '-' || x == '*' || x == '/')
+    if (x == '+' || x == '-' || x == '*' || x == '/' || x == '(' || x == ')' || x == '^')
         return 0; // false
     else
         return 1; // true
 }
 
-int precedence(char x){
-    if (x == '+' || x == '-')
-        return 1;
-    else if (x == '*' || x == '/')
-        return 2;
-    else
-        return 0;
-}
-
-int outPrecedenceC(char x){
+int outPrecedence(char x){
     if (x == '+' || x == '-')
         return 1; //2
     else if (x == '*' || x == '/')
@@ -108,10 +84,10 @@ void convertToPosfixC(char const *infix){
         if (isOperand(infix[i]))
             postfix[j++] = infix[i++];
         else{
-            if (!topC || outPrecedenceC(infix[i]) > inPrecedence(topC->data))
+            if (!topC || outPrecedence(infix[i]) > inPrecedence(topC->data))
                 push(infix[i++]);
             else
-                if (outPrecedenceC(infix[i] == inPrecedence(topC->data))){
+                if (outPrecedence(infix[i]) == inPrecedence(topC->data)){
                     popC();
                     i++;
                 } else
