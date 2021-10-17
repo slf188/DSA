@@ -9,6 +9,7 @@
 #include "Array.h"
 #include "LinkedList.h"
 #include "CharLL.h"
+#include <cstring>
 using namespace std;
 
 struct NodeC {
@@ -72,17 +73,49 @@ int precedence(char x){
         return 0;
 }
 
-void convertToPosfix(char const *infix){
+int outPrecedenceC(char x){
+    if (x == '+' || x == '-')
+        return 1; //2
+    else if (x == '*' || x == '/')
+        return 3; // 4
+    else if (x == '^')
+        return 6; // 5
+    else if (x == '(')
+        return 7; // 0
+    else if (x == ')')
+        return 0;
+    else
+        return -1;
+}
+
+int inPrecedence(char x){
+    if (x == '+' || x == '-')
+        return 2;
+    else if (x == '*' || x == '/')
+        return 4;
+    else if (x == '^')
+        return 5;
+    else if (x == '(')
+        return 0;
+    else
+        return -1;
+}
+
+void convertToPosfixC(char const *infix){
     int i = 0, j = 0;
     char *postfix = new char[strlen(infix) + 1];
     while(infix[i] != '\0'){
         if (isOperand(infix[i]))
             postfix[j++] = infix[i++];
-        else {
-            if (precedence(infix[i]) > precedence(topC->data))
+        else{
+            if (!topC || outPrecedenceC(infix[i]) > inPrecedence(topC->data))
                 push(infix[i++]);
             else
-                postfix[j++] = popC();
+                if (outPrecedenceC(infix[i] == inPrecedence(topC->data))){
+                    popC();
+                    i++;
+                } else
+                    postfix[j++] = popC();
         }
     }
     while(topC != nullptr){
@@ -93,9 +126,9 @@ void convertToPosfix(char const *infix){
 }
 
 int main() {
-    char const *infix = "a+b*c-d/e";
+    char const *infix = "((a+b)*c)-d^e^f";
     
-    convertToPosfix(infix);
+    convertToPosfixC(infix);
     
     return 0;
 }

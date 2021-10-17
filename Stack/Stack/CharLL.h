@@ -90,5 +90,24 @@
 //    cout << postfix;
 //}
 
+//void convertToPosfixS(char const *infix){
+//    int i = 0, j = 0;
+//    char *postfix = new char[strlen(infix) + 1];
+//    while(infix[i] != '\0'){
+//        if (isOperand(infix[i]))
+//            postfix[j++] = infix[i++];
+//        else {
+//            if (!topC || precedence(infix[i]) > precedence(topC->data))
+//                push(infix[i++]);
+//            else
+//                postfix[j++] = popC();
+//        }
+//    }
+//    while(topC != nullptr){
+//        postfix[j++] = popC();
+//    }
+//    postfix[j] = '\0';
+//    cout << postfix;
+//}
 
 #endif /* CharLL_h */
