@@ -25,7 +25,7 @@ void push(int x){
     }
 }
 
-void pop(){
+int pop(){
     int x = -1;
     Node *p;
     if (top == nullptr)
@@ -36,6 +36,7 @@ void pop(){
         x = p->data;
         delete p;
     }
+    return x;
 }
 
 void peek(int position){
@@ -72,6 +73,32 @@ void display(){
         printf("%d\n", p->data);
         p = p->nextNode;
     }
+}
+
+int isOperand(char x){
+    if (x == '+' || x == '-' || x == '*' || x == '/' || x == '(' || x == ')' || x == '^')
+        return 0;
+    else
+        return 1;
+}
+
+int evaluationPostfix(char const *postfix){
+    int i, x1, x2, r;
+    for(i = 0; postfix[i] != '\0'; i++){
+        if (isOperand(postfix[i]))
+            push(postfix[i]-'0');
+        else {
+            x2 = pop(); x1 = pop();
+            switch(postfix[i]){
+                case '*': r = x1 * x2; break;
+                case '+': r = x1 + x2; break;
+                case '-': r = x1 - x2; break;
+                case '/': r = x1 / x2; break;
+            }
+            push(r);
+        }
+    }
+    return top->data;
 }
 
 #endif /* LinkedList_h */
