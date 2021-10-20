@@ -14,6 +14,6 @@ using namespace std;
 
 int main() {
     char const *postfix = "35*62/+4-";
-    cout << evaluationPosfix(postfix) << endl;
+    cout << evaluationPostfix(postfix) << endl;
     return 0;
 }
