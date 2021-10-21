@@ -13,10 +13,6 @@ struct Node{
     Node *nextNode;
 } *front = nullptr, *rear = nullptr;
 
-void create(Node *q){
-    
-}
-
 void enqueue(int x){
     Node *t = new Node;
     if (t == NULL)
@@ -54,6 +50,7 @@ void display(){
         cout << p->data << " ";
         p = p->nextNode;
     }
+    cout << endl;
 }
 
 int main() {
