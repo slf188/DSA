@@ -8,25 +8,37 @@
 #include <iostream>
 using namespace std;
 
-struct QueueLL{
+struct Node{
     int data;
-    int front;
-    int rear;
-};
+    Node *nextNode;
+} *front = nullptr, *rear = nullptr;
 
-void create(QueueLL *q){
+void create(Node *q){
     
 }
 
-void enqueue(QueueLL *q){
+void enqueue(Node *q, int x){
+    Node *t = new Node;
+    if (t == NULL)
+        cout << "The queue is full\n";
+    else{
+        t->data = x;
+        t->nextNode = nullptr;
+        // If this is the first node:
+        if(front == nullptr)
+            front = rear = t;
+        else {
+            rear->nextNode = t;
+            rear = t;
+        }
+    }
+}
+
+void dequeue(Node *q){
     
 }
 
-void dequeue(QueueLL *q){
-    
-}
-
-void display(QueueLL *q){
+void display(Node *q){
     
 }
 
