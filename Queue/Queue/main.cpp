@@ -17,7 +17,7 @@ void create(Node *q){
     
 }
 
-void enqueue(Node *q, int x){
+void enqueue(int x){
     Node *t = new Node;
     if (t == NULL)
         cout << "The queue is full\n";
@@ -34,15 +34,35 @@ void enqueue(Node *q, int x){
     }
 }
 
-void dequeue(Node *q){
-    
+int dequeue(){
+    int x = -1;
+    Node *p;
+    if(front == NULL)
+        cout << "The queue is empty\n";
+    else {
+        p = front;
+        front = front->nextNode;
+        x = p->data;
+        delete p;
+    }
+    return x;
 }
 
-void display(Node *q){
-    
+void display(){
+    Node *p = front;
+    while(p != nullptr){
+        cout << p->data << " ";
+        p = p->nextNode;
+    }
 }
 
 int main() {
+    
+    enqueue(4);
+    enqueue(9);
+    enqueue(3);
+    enqueue(8);
+    display();
     
     return 0;
 }
