@@ -44,6 +44,7 @@ int dequeue(Queue *q){
 void display(Queue *q){
     for(int i = q->front + 1; i <= q->rear; i++)
         cout << q->array[i] << " ";
+    cout << endl;
 }
 
 

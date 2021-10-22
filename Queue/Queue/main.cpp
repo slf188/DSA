@@ -8,58 +8,68 @@
 #include <iostream>
 using namespace std;
 
-struct Node{
-    int data;
-    Node *nextNode;
-} *front = nullptr, *rear = nullptr;
+struct Dequeue{
+    int size;
+    int rear;
+    int front;
+    int *array;
+};
 
-void enqueue(int x){
-    Node *t = new Node;
-    if (t == NULL)
-        cout << "The queue is full\n";
-    else{
-        t->data = x;
-        t->nextNode = nullptr;
-        // If this is the first node:
-        if(front == nullptr)
-            front = rear = t;
-        else {
-            rear->nextNode = t;
-            rear = t;
-        }
-    }
+void createD(Dequeue *d, int size){
+    d->size = size;
+    d->array = new int[d->size];
+    d->front = d->rear = -1;
 }
 
-int dequeue(){
+void enqueueF(Dequeue *d, int x){
+    if (d->front == -1)
+        cout << "Queue Overflow" << endl;
+    d->array[d->front] = x;
+    d->front--;
+}
+
+void enqueueR(Dequeue *d, int x){
+    if (d->rear == d->size - 1)
+        cout << "Queue Overflow\n";
+    d->rear++;
+    d->array[d->rear] = x;
+}
+
+int dequeueF(Dequeue *d){
     int x = -1;
-    Node *p;
-    if(front == NULL)
-        cout << "The queue is empty\n";
-    else {
-        p = front;
-        front = front->nextNode;
-        x = p->data;
-        delete p;
-    }
+    if (d->front == d->rear)
+        cout << "Queue underflow\n";
+    x = d->array[d->front];
+    d->front++;
     return x;
 }
 
-void display(){
-    Node *p = front;
-    while(p != nullptr){
-        cout << p->data << " ";
-        p = p->nextNode;
-    }
+int dequeueR(Dequeue *d){
+    int x = -1;
+    if (d->rear == -1)
+        cout << "Queue underflow\n";
+    x = d->array[d->rear];
+    d->rear--;
+    return x;
+}
+
+void display(Dequeue *d){
+    for(int i = d->front + 1; i <= d->rear; i++)
+        cout << d->array[i] << " ";
     cout << endl;
 }
 
 int main() {
     
-    enqueue(4);
-    enqueue(9);
-    enqueue(3);
-    enqueue(8);
-    display();
+    Dequeue d;
+    
+    createD(&d, 5);
+    enqueueR(&d, 4);
+    enqueueR(&d, 6);
+    enqueueR(&d, 9);
+    enqueueR(&d, 10);
+    dequeueR(&d);
+    display(&d);
     
     return 0;
 }

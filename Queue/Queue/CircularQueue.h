@@ -44,6 +44,7 @@ int dequeueC(CircularQueue *q){
 void displayC(CircularQueue *q){
     for(int i = q->front + 1; i <= q->rear; i++)
         cout << q->array[i] << " ";
+    cout << endl;
 }
 
 #endif /* CircularQueue_h */
