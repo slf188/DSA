@@ -11,7 +11,7 @@ using namespace std;
 
 Node *root = NULL;
 
-void createBinaryTree(int size){
+void createBinaryTree(){
     Node *p, *t;
     int x;
     Queue q;
@@ -33,7 +33,7 @@ void createBinaryTree(int size){
         p->lChild = t;
         enqueue(&q, t);
       }
-      cout << "Enter right child" << p->data << endl;
+      cout << "Enter right child of " << p->data << endl;
       cin >> x;
       if (x != -1){
         t = new Node;
@@ -45,6 +45,37 @@ void createBinaryTree(int size){
      }
 }
 
+void preorder(Node *p){
+    if(p){
+        cout << p->data;
+        preorder(p->lChild);
+        preorder(p->rChild);
+    }
+}
+
+void inorder(Node *p){
+    if(p){
+        inorder(p->lChild);
+        cout << p->data;
+        inorder(p->rChild);
+    }
+}
+
+void postorder(Node *p){
+    if(p){
+        postorder(p->lChild);
+        postorder(p->rChild);
+        cout << p->data;
+    }
+}
+
 int main() {
+    createBinaryTree();
+    preorder(root);
+    cout << endl;
+    inorder(root);
+    cout << endl;
+    postorder(root);
+    cout << endl;
     return 0;
 }
