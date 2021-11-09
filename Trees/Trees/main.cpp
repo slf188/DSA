@@ -89,12 +89,12 @@ void levelOrder(Node *p){
 
 int main() {
     createBinaryTree();
-    preorder(root);
-    cout << endl;
-    inorder(root);
-    cout << endl;
-    postorder(root);
-    cout << endl;
+//    preorder(root);
+//    cout << endl;
+//    inorder(root);
+//    cout << endl;
+//    postorder(root);
+//    cout << endl;
     levelOrder(root);
     cout << endl;
     return 0;
