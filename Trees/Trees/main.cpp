@@ -69,6 +69,24 @@ void postorder(Node *p){
     }
 }
 
+void levelOrder(Node *p){
+    Queue q;
+    createQueue(&q, 100);
+    cout << p->data;
+    enqueue(&q, p);
+    while(!isEmpty(q)){
+        p = dequeue(&q);
+        if(p->lChild){
+            cout << p->lChild->data;
+            enqueue(&q, p->lChild);
+        }
+        if(p->rChild){
+            cout << p->rChild->data;
+            enqueue(&q, p->rChild);
+        }
+    }
+}
+
 int main() {
     createBinaryTree();
     preorder(root);
@@ -76,6 +94,8 @@ int main() {
     inorder(root);
     cout << endl;
     postorder(root);
+    cout << endl;
+    levelOrder(root);
     cout << endl;
     return 0;
 }
