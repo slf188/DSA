@@ -121,6 +121,7 @@ int height(Node *p){
 }
 
 int countLeafNodes(Node *p){
+    // Leaf nodes count degree zero nodes
     int x, y;
     if(p != NULL){
         x = countLeafNodes(p->lChild);
@@ -129,15 +130,45 @@ int countLeafNodes(Node *p){
             return x + y + 1;
         else
             return x + y;
-        /* Degree 2:
-        if(p->lChild != NULL && p->rChild != NULL)
-        Degree 1 or 2:
+    }
+    return 0;
+}
+
+int countDegreeOneNodes(Node *p){
+    int x, y;
+    if(p!=NULL){
+        x = countDegreeOneNodes(p->lChild);
+        y = countDegreeOneNodes(p->rChild);
+        if(p->lChild!=nullptr ^ p->rChild!=nullptr)
+            return x + y + 1;
+        else
+            return x + y;
+    }
+    return 0;
+}
+
+int countDegreeOneOrTwoNodes(Node *p){
+    int x, y;
+    if(p!=NULL){
+        x = countDegreeOneOrTwoNodes(p->lChild);
+        y = countDegreeOneOrTwoNodes(p->rChild);
         if(p->lChild != NULL || p->rChild != NULL)
-        Degree 1:
-        if((p->lChild != NULL && p->rChild == NULL)||(p->lChild == NULL && p->rChild != NULL))
-        This is lengthy but we can use XOR to reduce its length
-        if(p->lChild != NULL ^ p->rChild != NULL)
-        */
+            return x + y + 1;
+        else
+            return x + y;
+    }
+    return 0;
+}
+
+int countDegreeTwoNodes(Node *p){
+    int x, y;
+    if(p != NULL){
+        x = countDegreeTwoNodes(p->lChild);
+        y = countDegreeTwoNodes(p->rChild);
+        if(p->lChild != NULL && p->rChild != NULL)
+            return x + y + 1;
+        else
+            return x + y;
     }
     return 0;
 }
@@ -148,5 +179,8 @@ int main() {
     cout << "The sum of all the elements is " << sumOfData(root) << endl;
     cout << "The height is " << height(root) << endl;
     cout << "The number of leaf nodes is " << countLeafNodes(root) << endl;
+    cout << "The number of nodes with degree one is " << countDegreeOneNodes(root) << endl;
+    cout << "The number of nodes with degree two is " << countDegreeTwoNodes(root) << endl;
+    cout << "The number of nodes with degree one or two is " << countDegreeOneOrTwoNodes(root) << endl;
     return 0;
 }
