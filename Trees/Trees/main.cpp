@@ -87,15 +87,43 @@ void levelOrder(Node *p){
     }
 }
 
+int count(Node *p){
+    int x, y;
+    if(p != NULL){
+        x = count(p->lChild);
+        y = count(p->rChild);
+        return x + y + 1;
+    }
+    return 0;
+}
+
+int sumOfData(Node *p){
+    int x, y;
+    if(p != NULL){
+        x = count(p->lChild);
+        y = count(p->rChild);
+        return x + y + p->data;
+    }
+    return 0;
+}
+
+int height(Node *p){
+    int x, y;
+    if(p != NULL){
+        x = height(p->lChild);
+        y = height(p->rChild);
+        if(x > y)
+            return x + 1;
+        else if (x == y || x < y)
+            return y + 1;
+    }
+    return 0;
+}
+
 int main() {
     createBinaryTree();
-//    preorder(root);
-//    cout << endl;
-//    inorder(root);
-//    cout << endl;
-//    postorder(root);
-//    cout << endl;
-    levelOrder(root);
-    cout << endl;
+    cout << "The number of nodes is " << count(root) << endl;
+    cout << "The sum of all the elements is " << sumOfData(root) << endl;
+    cout << "The height is " << height(root) << endl;
     return 0;
 }
