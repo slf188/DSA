@@ -173,6 +173,12 @@ int countDegreeTwoNodes(Node *p){
     return 0;
 }
 
+int countUsingRecursion(Node *p){
+    if(p==NULL)
+        return 0;
+    return countUsingRecursion(p->lChild) + countUsingRecursion(p->rChild) + 1;
+}
+
 int main() {
     createBinaryTree();
     cout << "The number of nodes is " << count(root) << endl;
@@ -182,5 +188,6 @@ int main() {
     cout << "The number of nodes with degree one is " << countDegreeOneNodes(root) << endl;
     cout << "The number of nodes with degree two is " << countDegreeTwoNodes(root) << endl;
     cout << "The number of nodes with degree one or two is " << countDegreeOneOrTwoNodes(root) << endl;
+    cout << "The number of nodes using the recursion function is " << countUsingRecursion(root) << endl;
     return 0;
 }
