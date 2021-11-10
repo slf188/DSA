@@ -120,10 +120,33 @@ int height(Node *p){
     return 0;
 }
 
+int countLeafNodes(Node *p){
+    int x, y;
+    if(p != NULL){
+        x = countLeafNodes(p->lChild);
+        y = countLeafNodes(p->rChild);
+        if(p->lChild == NULL && p->rChild == NULL)
+            return x + y + 1;
+        else
+            return x + y;
+        /* Degree 2:
+        if(p->lChild != NULL && p->rChild != NULL)
+        Degree 1 or 2:
+        if(p->lChild != NULL || p->rChild != NULL)
+        Degree 1:
+        if((p->lChild != NULL && p->rChild == NULL)||(p->lChild == NULL && p->rChild != NULL))
+        This is lengthy but we can use XOR to reduce its length
+        if(p->lChild != NULL ^ p->rChild != NULL)
+        */
+    }
+    return 0;
+}
+
 int main() {
     createBinaryTree();
     cout << "The number of nodes is " << count(root) << endl;
     cout << "The sum of all the elements is " << sumOfData(root) << endl;
     cout << "The height is " << height(root) << endl;
+    cout << "The number of leaf nodes is " << countLeafNodes(root) << endl;
     return 0;
 }
