@@ -179,15 +179,12 @@ int countUsingRecursion(Node *p){
     return countUsingRecursion(p->lChild) + countUsingRecursion(p->rChild) + 1;
 }
 
+// Binary Search Tree Section
+
+
+
 int main() {
     createBinaryTree();
-    cout << "The number of nodes is " << count(root) << endl;
-    cout << "The sum of all the elements is " << sumOfData(root) << endl;
-    cout << "The height is " << height(root) << endl;
-    cout << "The number of leaf nodes is " << countLeafNodes(root) << endl;
-    cout << "The number of nodes with degree one is " << countDegreeOneNodes(root) << endl;
-    cout << "The number of nodes with degree two is " << countDegreeTwoNodes(root) << endl;
-    cout << "The number of nodes with degree one or two is " << countDegreeOneOrTwoNodes(root) << endl;
-    cout << "The number of nodes using the recursion function is " << countUsingRecursion(root) << endl;
+    
     return 0;
 }
