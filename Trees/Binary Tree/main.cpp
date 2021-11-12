@@ -23,26 +23,26 @@ void createBinaryTree(){
     root->lChild = root->rChild = NULL;
     enqueue(&q, root);
     while(!isEmpty(q)){
-      p = dequeue(&q);
-      cout << "Enter left child of " << p->data << endl;
-      cin >> x;
-      if (x != -1){
-        t = new Node;
-        t->data = x;
-        t->lChild= t->rChild = NULL;
-        p->lChild = t;
-        enqueue(&q, t);
-      }
-      cout << "Enter right child of " << p->data << endl;
-      cin >> x;
-      if (x != -1){
-        t = new Node;
-        t->data = x;
-        t->lChild = t->rChild = NULL;
-        p->rChild = t;
-        enqueue(&q, t);
-      }
-     }
+        p = dequeue(&q);
+        cout << "Enter left child of " << p->data << endl;
+        cin >> x;
+        if (x != -1){
+            t = new Node;
+            t->data = x;
+            t->lChild= t->rChild = NULL;
+            p->lChild = t;
+            enqueue(&q, t);
+        }
+        cout << "Enter right child of " << p->data << endl;
+        cin >> x;
+        if (x != -1){
+            t = new Node;
+            t->data = x;
+            t->lChild = t->rChild = NULL;
+            p->rChild = t;
+            enqueue(&q, t);
+        }
+    }
 }
 
 void preorder(Node *p){
@@ -223,19 +223,70 @@ Node * recursiveInsert(Node *p, int key){
         return t;
     }
     if(p->data > key)
-        /* Because p->lChild is null now we will
-         assign p->lChild to a new created node */
+    /* Because p->lChild is null now we will
+     assign p->lChild to a new created node */
         p->lChild = recursiveInsert(p->lChild, key);
     else
-        /* Because p->rChild is null now we will
-         assign p->rChild to a new created node */
+    /* Because p->rChild is null now we will
+     assign p->rChild to a new created node */
         p->rChild = recursiveInsert(p->rChild, key);
+    return p;
+}
+
+Node * inorderPredecessor(Node *p){
+    while(p && p->rChild != NULL)
+        p = p->rChild;
+    return p;
+}
+
+Node * inorderSuccessor(Node *p){
+    while(p && p->lChild != NULL)
+        p = p->lChild;
+    return p;
+}
+
+Node * deleting(Node *p, int key){
+    Node *q;
+    if(p == nullptr)
+        return nullptr;
+    // Directly delete this leaf node:
+    if(p->lChild == nullptr && p->rChild == nullptr){
+        // Check if the node is a root node:
+        if(p==root)
+            root = nullptr;
+        // Delete this leaf node
+        delete p;
+        return nullptr;
+    }
+    if(p->data > key)
+        p->lChild = deleting(p->lChild, key);
+    else if(p->data < key)
+        p->rChild = deleting(p->rChild, key);
+    else { // Key is found
+        // Decide if we will take a left
+        // or right subtree predecessor
+        if(height(p->lChild) > height(p->rChild)){
+            q = inorderPredecessor(p->lChild);
+            p->data = q->data;
+            p->lChild = deleting(p->lChild, q->data);
+        } else {
+            q = inorderSuccessor(p->rChild);
+            p->data = q->data;
+            p->rChild = deleting(p->rChild, q->data);
+        }
+    }
     return p;
 }
 
 int main() {
     root = recursiveInsert(root, 30);
     recursiveInsert(root, 20);
+    recursiveInsert(root, 10);
     recursiveInsert(root, 25);
+    recursiveInsert(root, 40);
+    recursiveInsert(root, 35);
+    recursiveInsert(root, 45);
+    recursiveInsert(root, 43);
+    deleting(root, 30);
     return 0;
 }
