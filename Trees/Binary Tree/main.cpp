@@ -181,10 +181,24 @@ int countUsingRecursion(Node *p){
 
 // Binary Search Tree Section
 
-
+int rSearch(Node *t, int key){
+    if(t==NULL)
+        return NULL;
+    if(key==t->data)
+        return t->data;
+    else if(t->data>key)
+        // Perform search on the left subtree
+        return rSearch(t->lChild, key);
+    else
+        // Perform search on the right subtree
+        return rSearch(t->rChild, key);
+}
 
 int main() {
     createBinaryTree();
-    
+    if(rSearch(root, 23))
+        cout << "The element was found\n";
+    else
+        cout << "The element was not found\n";
     return 0;
 }
