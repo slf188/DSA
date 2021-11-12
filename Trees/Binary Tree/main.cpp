@@ -194,11 +194,32 @@ int rSearch(Node *t, int key){
         return rSearch(t->rChild, key);
 }
 
+void insert(Node *t, int key){
+    Node *r = NULL, *p;
+    while(t!=NULL){
+        r = t;
+        if(key==t->data)
+            return;
+        else if(t->data>key)
+            t = t->lChild;
+        else
+            t = t->rChild;
+    }
+    p = new Node;
+    p->data = key;
+    p->lChild = p->rChild = NULL;
+    if(r->data > p->data)
+        r->lChild = p;
+    else
+        r->rChild = p;
+}
+
 int main() {
     createBinaryTree();
     if(rSearch(root, 23))
         cout << "The element was found\n";
     else
         cout << "The element was not found\n";
+    insert(root, 38);
     return 0;
 }
