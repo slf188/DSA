@@ -214,12 +214,28 @@ void insert(Node *t, int key){
         r->rChild = p;
 }
 
-int main() {
-    createBinaryTree();
-    if(rSearch(root, 23))
-        cout << "The element was found\n";
+Node * recursiveInsert(Node *p, int key){
+    Node *t;
+    if(p==NULL){
+        t = new Node;
+        t->data = key;
+        t->lChild = t->rChild = NULL;
+        return t;
+    }
+    if(p->data > key)
+        /* Because p->lChild is null now we will
+         assign p->lChild to a new created node */
+        p->lChild = recursiveInsert(p->lChild, key);
     else
-        cout << "The element was not found\n";
-    insert(root, 38);
+        /* Because p->rChild is null now we will
+         assign p->rChild to a new created node */
+        p->rChild = recursiveInsert(p->rChild, key);
+    return p;
+}
+
+int main() {
+    root = recursiveInsert(root, 30);
+    recursiveInsert(root, 20);
+    recursiveInsert(root, 25);
     return 0;
 }
