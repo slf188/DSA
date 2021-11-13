@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Queue.h"
+#include "Stack.h"
 using namespace std;
 
 Node *root = NULL;
@@ -276,6 +277,34 @@ Node * deleting(Node *p, int key){
         }
     }
     return p;
+}
+
+void createPreorder(int preorder[], int size){
+    Stack st;
+    Node *t, *p;
+    int i = 0;
+    root = new Node;
+    root->data = preorder[i++];
+    root->lChild = root->rChild = nullptr;
+    p = root;
+    while(i < size){
+        if(preorder[i] < p->data){
+            t = new Node;
+            t->data = preorder[i++];
+            t->lChild = t->rChild = nullptr;
+            p->lChild = t;
+            push(&st, p);
+            p = t;
+        }
+        if(preorder[i] > p->data && preorder[i] < stackTop(&st)->data){
+            t = new Node;
+            t->data = preorder[i++];
+            t->lChild = t->rChild = nullptr;
+            p->rChild = t;
+            p = t;
+        } else
+            p = pop(&st);
+    }
 }
 
 int main() {
