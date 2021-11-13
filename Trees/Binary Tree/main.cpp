@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "Queue.h"
-#include "Stack.h"
+#include <stack>
 using namespace std;
 
 Node *root = NULL;
@@ -279,9 +279,9 @@ Node * deleting(Node *p, int key){
     return p;
 }
 
-void createPreorder(int preorder[], int size){
-    Stack st;
-    Node *t, *p;
+void createFromPreorder(int preorder[], int size){
+    stack<Node*> st;
+    Node *t, *p = root;
     int i = 0;
     root = new Node;
     root->data = preorder[i++];
@@ -293,29 +293,26 @@ void createPreorder(int preorder[], int size){
             t->data = preorder[i++];
             t->lChild = t->rChild = nullptr;
             p->lChild = t;
-            push(&st, p);
+            st.push(p);
             p = t;
+        } else {
+            if(preorder[i] > p->data && preorder[i] < st.empty() ? 32767 : st.top()->data){
+                t = new Node;
+                t->data = preorder[i++];
+                t->lChild = t->rChild = nullptr;
+                p->rChild = t;
+                p = t;
+            } else {
+                p = st.top();
+                st.pop();
+            }
         }
-        if(preorder[i] > p->data && preorder[i] < stackTop(&st)->data){
-            t = new Node;
-            t->data = preorder[i++];
-            t->lChild = t->rChild = nullptr;
-            p->rChild = t;
-            p = t;
-        } else
-            p = pop(&st);
     }
 }
 
 int main() {
-    root = recursiveInsert(root, 30);
-    recursiveInsert(root, 20);
-    recursiveInsert(root, 10);
-    recursiveInsert(root, 25);
-    recursiveInsert(root, 40);
-    recursiveInsert(root, 35);
-    recursiveInsert(root, 45);
-    recursiveInsert(root, 43);
-    deleting(root, 30);
+    int pre[] = {30, 20, 10, 15, 25, 40, 50, 45};
+    int n = sizeof(pre)/sizeof(pre[0]);
+    createFromPreorder(pre, n);
     return 0;
 }
