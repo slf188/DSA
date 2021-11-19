@@ -52,6 +52,19 @@ NodeAVL * LLRotation(NodeAVL *p){
     return pLeft;
 }
 
+NodeAVL * RRRotation(NodeAVL *p){
+    NodeAVL *pRight = p->rChild;
+    NodeAVL *pRightLeft = pRight->lChild;
+    pRight->lChild = p;
+    p->rChild = pRightLeft;
+    p->height = nodeHeight(p);
+    pRight->height = nodeHeight(pRight);
+    if(rootAVL = p)
+        rootAVL = pRight;
+    return pRight;
+    
+}
+
 NodeAVL * LRRotation(NodeAVL *p){
     /*
      Plr will be the root,
