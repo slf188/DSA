@@ -17,7 +17,7 @@ struct NodeAVL {
      need to keep track of the height */
     int height;
     NodeAVL *rChild;
-}*root = nullptr;
+}*rootAVL = nullptr;
 
 int nodeHeight(NodeAVL *p){
     int hLeftSubtree, hRightSubtree;
@@ -37,25 +37,46 @@ int balanceFactor(NodeAVL *p){
     return hLeftSubtree - hRightSubtree;
 }
 
-Node * LLRotation(NodeAVL *p){
+NodeAVL * LLRotation(NodeAVL *p){
     /* We should make p->lChild the root
      node and p->rLChild should
      become the lChild of p */
     NodeAVL *pLeft = p->lChild;
-    NodeAVl *pLeftRight = pl->rChild;
+    NodeAVL *pLeftRight = pLeft->rChild;
     pLeft->rChild = p;
-    p->lChild p = pLeftRight;
+    p->lChild = pLeftRight;
     p->height = nodeHeight(p);
-    pLeft->height = nodeHeight(pl);
-    if(root = p)
-        root = pl;
-    return pl;
+    pLeft->height = nodeHeight(pLeft);
+    if(rootAVL = p)
+        rootAVL = pLeft;
+    return pLeft;
 }
 
-Node * recursiveInsertAVL(NodeAVL *p, int key){
-    Node *t;
+NodeAVL * LRRotation(NodeAVL *p){
+    /*
+     Plr will be the root,
+     the rChild of plr will be p,
+     pl will be plr's lChild
+     */
+    NodeAVL *pLeft = p->lChild;
+    NodeAVL *pLeftRight = pLeft->rChild;
+    pLeft->rChild = pLeftRight->lChild;
+    p->lChild = pLeftRight->rChild;
+    pLeftRight->lChild = pLeft;
+    pLeftRight->rChild = p;
+    pLeft->height = nodeHeight(pLeft);
+    p->height = nodeHeight(p);
+    pLeftRight->height = nodeHeight(pLeftRight);
+    if(rootAVL == p)
+        rootAVL = pLeftRight;
+    
+    return pLeftRight;
+}
+
+NodeAVL * recursiveInsertAVL(NodeAVL *p, int key){
+    NodeAVL *t;
     if(p==NULL){
-        t = new Node;
+        t = new NodeAVL;
         t->data = key;
         t->height = 1;
         t->lChild = t->rChild = NULL;
@@ -64,11 +85,11 @@ Node * recursiveInsertAVL(NodeAVL *p, int key){
     if(p->data > key)
     /* Because p->lChild is null now we will
      assign p->lChild to a new created node */
-        p->lChild = recursiveInsert(p->lChild, key);
+        p->lChild = recursiveInsertAVL(p->lChild, key);
     else
     /* Because p->rChild is null now we will
      assign p->rChild to a new created node */
-        p->rChild = recursiveInsert(p->rChild, key);
+        p->rChild = recursiveInsertAVL(p->rChild, key);
     p->height = nodeHeight(p);
     /* Now we can proceed on checking
      the balance factor of the tree and
@@ -79,11 +100,11 @@ Node * recursiveInsertAVL(NodeAVL *p, int key){
     else if(balanceFactor(p) == 2 && balanceFactor(p->lChild) == -1)
         // This will trigger LR Rotation
         return LRRotation(p);
-    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == -1)
-        // This will trigger RR Rotation
-        return RRRotation(p);
-    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == 1)
-        return RLRotation(p);
+//    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == -1)
+//        // This will trigger RR Rotation
+//        return RRRotation(p);
+//    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == 1)
+//        return RLRotation(p);
     
     
     return p;

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Queue.h"
+#include "AVL.h"
 #include <stack>
 using namespace std;
 
@@ -310,11 +311,12 @@ void createFromPreorder(int preorder[], int size){
     }
 }
 
-// AVL Tree section
+
 
 int main() {
-    int pre[] = {30, 20, 10, 15, 25, 40, 50, 45};
-    int n = sizeof(pre)/sizeof(pre[0]);
-    createFromPreorder(pre, n);
+    rootAVL = recursiveInsertAVL(rootAVL, 10);
+    recursiveInsertAVL(rootAVL, 5);
+    recursiveInsertAVL(rootAVL, 2);
+    
     return 0;
 }
