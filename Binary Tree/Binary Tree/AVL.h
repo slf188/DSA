@@ -47,7 +47,7 @@ NodeAVL * LLRotation(NodeAVL *p){
     p->lChild = pLeftRight;
     p->height = nodeHeight(p);
     pLeft->height = nodeHeight(pLeft);
-    if(rootAVL = p)
+    if(rootAVL == p)
         rootAVL = pLeft;
     return pLeft;
 }
@@ -59,7 +59,7 @@ NodeAVL * RRRotation(NodeAVL *p){
     p->rChild = pRightLeft;
     p->height = nodeHeight(p);
     pRight->height = nodeHeight(pRight);
-    if(rootAVL = p)
+    if(rootAVL == p)
         rootAVL = pRight;
     return pRight;
     
@@ -84,6 +84,21 @@ NodeAVL * LRRotation(NodeAVL *p){
         rootAVL = pLeftRight;
     
     return pLeftRight;
+}
+
+NodeAVL * RLRotation(NodeAVL *p){
+    NodeAVL *pRight = p->rChild;
+    NodeAVL *pRightLeft = pRight->lChild;
+    pRight->lChild = pRightLeft->rChild;
+    p->rChild = pRightLeft->lChild;
+    pRightLeft->rChild = pRight;
+    pRightLeft->lChild = p;
+    pRight->height = nodeHeight(pRight);
+    p->height = nodeHeight(p);
+    pRightLeft->height = nodeHeight(pRightLeft);
+    if(rootAVL == p)
+        rootAVL = pRightLeft;
+    return pRightLeft;
 }
 
 NodeAVL * recursiveInsertAVL(NodeAVL *p, int key){
@@ -113,12 +128,11 @@ NodeAVL * recursiveInsertAVL(NodeAVL *p, int key){
     else if(balanceFactor(p) == 2 && balanceFactor(p->lChild) == -1)
         // This will trigger LR Rotation
         return LRRotation(p);
-//    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == -1)
-//        // This will trigger RR Rotation
-//        return RRRotation(p);
-//    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == 1)
-//        return RLRotation(p);
-    
+    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == -1)
+        // This will trigger RR Rotation
+        return RRRotation(p);
+    else if(balanceFactor(p) == -2 && balanceFactor(p->lChild) == 1)
+        return RLRotation(p);
     
     return p;
 }
