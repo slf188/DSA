@@ -311,8 +311,6 @@ void createFromPreorder(int preorder[], int size){
     }
 }
 
-
-
 int main() {
     rootAVL = recursiveInsertAVL(rootAVL, 10);
     recursiveInsertAVL(rootAVL, 5);
