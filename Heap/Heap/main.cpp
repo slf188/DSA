@@ -18,10 +18,16 @@ void insert(int A[], int n){
     A[i] = temp;
 }
 
+void createHeap(){
+    int A[] = {0, 10, 20, 30, 25, 5, 40, 35};
+    int i;
+    for(i = 2; i <= 7; i++)
+        insert(A, i);
+}
+
 int main() {
     
-    int A[] = {30, 20, 15, 5, 10, 12, 6};
-    insert(A, 40);
+    createHeap();
     
     return 0;
 }
