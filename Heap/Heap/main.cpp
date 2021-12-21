@@ -48,6 +48,8 @@ void deleteHeap(int A[], int n){
         } else
             break;
     }
+    // Heap sort:
+    A[n] = x;
 }
 
 int main() {
