@@ -40,7 +40,7 @@ void insertionSort(int A[], int n){
     for(int i = 1; i < n; i++){
         j = i - 1;
         x = A[i];
-        while(A[j] > x){
+        while(j > -1 && A[j] > x){
             A[j + 1] = A[j];
             j--;
         }
