@@ -31,6 +31,10 @@ void bubbleSort(int A[], int n){
     cout << endl;
 }
 
+void insertionSort(int A[], int x){
+    
+}
+
 int main() {
     int A[] = {8, 5, 7, 3, 2};
     bubbleSort(A, 5);
