@@ -31,12 +31,28 @@ void bubbleSort(int A[], int n){
     cout << endl;
 }
 
-void insertionSort(int A[], int x){
-    
+void insertionSort(int A[], int n){
+    /* For loop for passes
+    1. We don't have to start from 0 because 0 is already sorted.
+     2. We must check all the elements from the array.
+     */
+    int j, x;
+    for(int i = 1; i < n; i++){
+        j = i - 1;
+        x = A[i];
+        while(A[j] > x){
+            A[j + 1] = A[j];
+            j--;
+        }
+        A[j + 1] = x;
+    }
+    for(int i = 0; i < n; i++)
+        printf("%d ", A[i]);
+    cout << endl;
 }
 
 int main() {
     int A[] = {8, 5, 7, 3, 2};
-    bubbleSort(A, 5);
+    insertionSort(A, 5);
     return 0;
 }
