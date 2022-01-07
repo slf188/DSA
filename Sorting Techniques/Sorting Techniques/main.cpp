@@ -10,8 +10,10 @@ using namespace std;
 
 void bubbleSort(int A[], int n){
     int flag;
+    // This for loop is reponsible for the passes
     for(int i = 0; i < n - 1; i++){
         flag = 0;
+        // This for loop is reponsible to traverse through the whole array and swap the elements
         for(int j = 0; j < n - 1 - i; j++)
             if(A[j] > A[j + 1]){
                 swap(A[j], A[j + 1]);
@@ -26,6 +28,7 @@ void bubbleSort(int A[], int n){
     }
     for(int i = 0; i < n; i++)
         printf("%d ", A[i]);
+    cout << endl;
 }
 
 int main() {
