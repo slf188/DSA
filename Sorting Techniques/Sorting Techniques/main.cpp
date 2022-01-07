@@ -45,6 +45,7 @@ void insertionSort(int A[], int n){
             j--;
         }
         A[j + 1] = x;
+        // We don't need the help of the flag variable becuase by nature insertion sort is adaptive.
     }
     for(int i = 0; i < n; i++)
         printf("%d ", A[i]);
