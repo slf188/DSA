@@ -53,11 +53,26 @@ void insertionSort(int A[], int n){
 }
 
 void selectionSort(int A[], int n){
+    // For the passes
+    int j, k;
+    for(int i = 0; i < n - 1; i++){
+        // For j and k
+        for(int j = k = i; j < n; j++){
+            // Compare if j is smaller than k, if so move k to where j is
+            if(A[j] < A[k])
+                k = j;
+        }
+        // Swap i and k
+        swap(A[i], A[k]);
+    }
     
+    for(int i = 0; i < n; i++)
+        printf("%d ", A[i]);
+    cout << endl;
 }
 
 int main() {
-    int A[] = {8, 5, 7, 3, 2};
-    insertionSort(A, 5);
+    int A[] = {8, 6, 3, 2, 5, 4};
+    selectionSort(A, 6);
     return 0;
 }
