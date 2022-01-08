@@ -52,6 +52,10 @@ void insertionSort(int A[], int n){
     cout << endl;
 }
 
+void selectionSort(int A[], int n){
+    
+}
+
 int main() {
     int A[] = {8, 5, 7, 3, 2};
     insertionSort(A, 5);
