@@ -71,6 +71,14 @@ void selectionSort(int A[], int n){
     cout << endl;
 }
 
+void quickSort(int A[], int n){
+    
+    
+    for(int i = 0; i < n; i++)
+        printf("%d ", A[i]);
+    cout << endl;
+}
+
 int main() {
     int A[] = {8, 6, 3, 2, 5, 4};
     selectionSort(A, 6);
