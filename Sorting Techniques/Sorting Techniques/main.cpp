@@ -71,16 +71,35 @@ void selectionSort(int A[], int n){
     cout << endl;
 }
 
-void quickSort(int A[], int n){
+int partition(int A[], int l, int h){
+    int pivot = A[l];
+    int i = l, j = h;
     
+    do{
+        do{i++;}while(A[i] <= pivot);
+        do{j--;}while(A[j] > pivot);
+        if(i < j)
+            swap(A[i], A[j]);
+    }while(i < j);
+    swap(A[l], A[j]);
+    return j;
     
-    for(int i = 0; i < n; i++)
-        printf("%d ", A[i]);
-    cout << endl;
+}
+
+void quickSort(int A[], int l, int h){
+    int j;
+    if(l < h){
+        j = partition(A, l, h);
+        quickSort(A, l, j);
+        quickSort(A, j+1, h);
+    }
 }
 
 int main() {
-    int A[] = {8, 6, 3, 2, 5, 4};
-    selectionSort(A, 6);
+    int A[] = {50, 70, 60, 90, 40, 80, 10, 20, 30, INT32_MAX}, n = 9;
+    quickSort(A, 0, 8);
+    for(int i = 0; i < n; i++)
+        printf("%d ", A[i]);
+    cout << endl;
     return 0;
 }
