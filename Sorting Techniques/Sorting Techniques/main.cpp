@@ -87,6 +87,7 @@ int partition(int A[], int l, int h){
 }
 
 void quickSort(int A[], int l, int h){
+    // Quick sort is a recursive function that could be written inside the partition function.
     int j;
     if(l < h){
         j = partition(A, l, h);
