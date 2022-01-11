@@ -118,9 +118,32 @@ void mergeTwoLists(int A[], int B[], int m, int n){
     cout << endl;
 }
 
+void mergeTwoInASingleArray(int A[], int l, int mid, int h){
+    int i, j, k;
+    i = l, j = mid + 1, k = l;
+    int B[100];
+    while(i <= mid && j <= h)
+        if(A[i] < A[j])
+            B[k++] = A[i++];
+        else
+            B[k++] = A[j++];
+    
+    for(; i <= mid; i++)
+        B[k++] = A[i];
+    
+    for(; j <= h; j++)
+        B[k++] = A[j];
+    
+    for(i = l; i<=h;i++)
+        A[i] = B[i];
+    
+    for(int i = 0; i < 8; i++)
+        printf("%d ",A[i]);
+    cout << endl;
+}
+
 int main() {
-    int A[] = {2, 10, 18, 20, 23}, m = 5;
-    int B[] = {4, 9, 19, 25, 30, 31}, n = 6;
-    mergeTwoLists(A, B, m, n);
+    int A[] = {2, 5, 8, 12, 3, 6, 7, 10};
+    mergeTwoInASingleArray(A, 0, 3, 7);
     return 0;
 }
