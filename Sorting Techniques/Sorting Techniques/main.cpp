@@ -57,7 +57,7 @@ void selectionSort(int A[], int n){
     int j, k;
     for(int i = 0; i < n - 1; i++){
         // For j and k
-        for(int j = k = i; j < n; j++){
+        for(j = k = i; j < n; j++){
             // Compare if j is smaller than k, if so move k to where j is
             if(A[j] < A[k])
                 k = j;
