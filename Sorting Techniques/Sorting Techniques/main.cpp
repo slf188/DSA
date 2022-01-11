@@ -22,7 +22,7 @@ void bubbleSort(int A[], int n){
         /* By introducing flag we can identify whether there was any swapping in the past, if there is no swapping then the list is already sorted and can stop the whole algorithm.
          By introducing flag we have made bubble sort an adaptive technique, by nature is it not adaptive.
          */
-    
+        
         if(flag == 0)
             break;
     }
@@ -33,7 +33,7 @@ void bubbleSort(int A[], int n){
 
 void insertionSort(int A[], int n){
     /* For loop for passes
-    1. We don't have to start from 0 because 0 is already sorted.
+     1. We don't have to start from 0 because 0 is already sorted.
      2. We must check all the elements from the array.
      */
     int j, x;
@@ -96,16 +96,31 @@ void quickSort(int A[], int l, int h){
     }
 }
 
-void mergeSort(int A[], int B[], int C[]){
-    
+void mergeTwoLists(int A[], int B[], int m, int n){
+    int C[m + n];
+    int i, j, k;
+    i = j = k = 0;
+    while(i < m && j < n){
+        if(A[i] < B[j])
+            C[k++] = A[i++];
+        else
+            C[k++] = A[j++];
+    }
+    // Copy the elements from array A if there are any elements remaining
+    for(; i < m; i++)
+        C[k++] = A[i];
+    // Copy the elements from array B if there are any elements remaining
+    for(; j < n; j++)
+        C[k++] = B[j];
+    // The time taken for this algorithm is O(m + n)
+    for(int l = 0; l < m + n; l++)
+        printf("%d ", C[l]);
     cout << endl;
 }
 
 int main() {
-    int A[] = {50, 70, 60, 90, 40, 80, 10, 20, 30, INT32_MAX}, n = 9;
-    quickSort(A, 0, 8);
-    for(int i = 0; i < n; i++)
-        printf("%d ", A[i]);
-    cout << endl;
+    int A[] = {2, 10, 18, 20, 23}, m = 5;
+    int B[] = {4, 9, 19, 25, 30, 31}, n = 6;
+    mergeTwoLists(A, B, m, n);
     return 0;
 }
