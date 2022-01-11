@@ -96,6 +96,11 @@ void quickSort(int A[], int l, int h){
     }
 }
 
+void mergeSort(int A[], int B[], int C[]){
+    
+    cout << endl;
+}
+
 int main() {
     int A[] = {50, 70, 60, 90, 40, 80, 10, 20, 30, INT32_MAX}, n = 9;
     quickSort(A, 0, 8);
