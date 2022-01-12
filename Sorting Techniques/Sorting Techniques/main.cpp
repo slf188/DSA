@@ -155,8 +155,21 @@ void iterativeMergeSort(int A[], int n){
         mergeTwoInASingleArray(A, 0, p/2, n - 1);
 }
 
+void recursiveMergeSort(int A[], int l, int h){
+    int mid;
+    if(l < h){
+        mid = (l + h) / 2;
+        // We repeat the function on the first half
+        recursiveMergeSort(A, l, mid);
+        // Perform merge sort on the right hand-side or second half
+        recursiveMergeSort(A, mid + 1, h);
+        // Merge the two lists in a single array with the help of auxiliary array B
+        mergeTwoInASingleArray(A, l, mid, h);
+    }
+}
+
 int main() {
-    int A[] = {8, 3, 7, 4, 9, 2, 6, 5};
-    iterativeMergeSort(A, 8);
+    int A[] = {8, 2, 9, 6, 5, 3, 7, 4};
+    recursiveMergeSort(A, 0, 7);
     return 0;
 }
