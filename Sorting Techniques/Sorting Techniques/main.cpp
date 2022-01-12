@@ -168,12 +168,40 @@ void recursiveMergeSort(int A[], int l, int h){
     }
 }
 
-void countSort(int A[]){
+int findMax(int A[], int n){
+    int max=INT32_MIN;
+    int i;
+    for(i=0;i<n;i++)
+        if(A[i]>max)
+            max=A[i];
+    return max;
+}
+
+void countSort(int A[], int n){
+    int max = findMax(A, n), i;
+    int *count = new int[max];
+    for(int i=0; i<max + 1; i++)
+        count[i] = 0;
+    for(i = 0; i<n; i++)
+        count[A[i]]++;
+    i = 0;
+    int j = 0;
+    while(i < max + 1){
+        if(count[i] > 0){
+            A[j++] = i;
+            count[i]--;
+        } else {
+            i++;
+        }
+    }
     
+    for(int i = 0; i < n; i++)
+        printf("%d ",A[i]);
+    cout << endl;
 }
 
 int main() {
     int A[] = {6, 3, 9, 10, 15, 6, 8, 12, 3, 6};
-    countSort(A);
+    countSort(A, 10);
     return 0;
 }
