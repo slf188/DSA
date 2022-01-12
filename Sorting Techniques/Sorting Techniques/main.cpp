@@ -142,8 +142,21 @@ void mergeTwoInASingleArray(int A[], int l, int mid, int h){
     cout << endl;
 }
 
+void iterativeMergeSort(int A[], int n){
+    int p, i, l, mid, h;
+    for(p = 2; p <= n; p = p * 2)
+        for(i = 0; i + p - 1 < n; i = i + p){
+            l = i;
+            h = i + p - 1;
+            mid = (l + h) / 2;
+            mergeTwoInASingleArray(A, l, mid, h);
+        }
+    if(p/2 < n)
+        mergeTwoInASingleArray(A, 0, p/2, n - 1);
+}
+
 int main() {
-    int A[] = {2, 5, 8, 12, 3, 6, 7, 10};
-    mergeTwoInASingleArray(A, 0, 3, 7);
+    int A[] = {8, 3, 7, 4, 9, 2, 6, 5};
+    iterativeMergeSort(A, 8);
     return 0;
 }
