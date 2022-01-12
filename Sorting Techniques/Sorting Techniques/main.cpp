@@ -168,8 +168,12 @@ void recursiveMergeSort(int A[], int l, int h){
     }
 }
 
+void countSort(int A[]){
+    
+}
+
 int main() {
-    int A[] = {8, 2, 9, 6, 5, 3, 7, 4};
-    recursiveMergeSort(A, 0, 7);
+    int A[] = {6, 3, 9, 10, 15, 6, 8, 12, 3, 6};
+    countSort(A);
     return 0;
 }
