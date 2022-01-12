@@ -200,6 +200,27 @@ void countSort(int A[], int n){
     cout << endl;
 }
 
+void binBucketSort(int A[], int n){
+    int max, i, j;
+    Node **bins;
+    max = findMax(A, n);
+    bins = new Node*[max + 1];
+    // We initialize the array with null values
+    for(i = 0; i < max + 1; i++)
+        bins[i] = NULL;
+    // We insert the elements from array A to the bins array
+    for(i = 0; i < n; i++)
+        insert(bins[A[i]], A[i]);
+    
+    i = 0, j = 0;
+    // Delete and copy the elements back to the array A
+    while(i < max + 1){
+        while(bins[i] != nullptr)
+            A[j++] = delete(bin[i]);
+        i++;
+    }
+}
+
 int main() {
     int A[] = {6, 3, 9, 10, 15, 6, 8, 12, 3, 6};
     countSort(A, 10);
