@@ -211,7 +211,7 @@ void binBucketSort(int A[], int n){
     // We insert the elements from array A to the bins array
     for(i = 0; i < n; i++)
         insert(bins[A[i]], A[i]);
-    
+
     i = 0, j = 0;
     // Delete and copy the elements back to the array A
     while(i < max + 1){
@@ -219,6 +219,10 @@ void binBucketSort(int A[], int n){
             A[j++] = delete(bin[i]);
         i++;
     }
+}
+
+void radixSort(int A[], int n){
+    
 }
 
 int main() {
