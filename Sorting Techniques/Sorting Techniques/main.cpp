@@ -6,7 +6,48 @@
 //
 
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+class Node{
+public:
+    int value;
+    Node* next;
+};
+
+void Insert(Node** ptrBins, int value, int idx){
+    Node* temp = new Node;
+    temp->value = value;
+    temp->next = nullptr;
+    
+    if (ptrBins[idx] == nullptr){
+        ptrBins[idx] = temp;  // ptrBins[idx] is head ptr
+    } else {
+        Node* p = ptrBins[idx];
+        while (p->next != nullptr){
+            p = p->next;
+        }
+        p->next = temp;
+    }
+}
+
+int Delete(Node** ptrBins, int idx){
+    Node* p = ptrBins[idx];  // ptrBins[idx] is head ptr
+    ptrBins[idx] = ptrBins[idx]->next;
+    int x = p->value;
+    delete p;
+    return x;
+}
+
+int Max(int A[], int n){
+    int max = -32768;
+    for (int i=0; i<n; i++){
+        if (A[i] > max){
+            max = A[i];
+        }
+    }
+    return max;
+}
 
 void bubbleSort(int A[], int n){
     int flag;
@@ -200,33 +241,88 @@ void countSort(int A[], int n){
     cout << endl;
 }
 
-void binBucketSort(int A[], int n){
-    int max, i, j;
-    Node **bins;
-    max = findMax(A, n);
-    bins = new Node*[max + 1];
-    // We initialize the array with null values
-    for(i = 0; i < max + 1; i++)
-        bins[i] = NULL;
-    // We insert the elements from array A to the bins array
-    for(i = 0; i < n; i++)
-        insert(bins[A[i]], A[i]);
+//void binBucketSort(int A[], int n){
+//    int max, i, j;
+//    Node **bins;
+//    max = findMax(A, n);
+//    bins = new Node*[max + 1];
+//    // We initialize the array with null values
+//    for(i = 0; i < max + 1; i++)
+//        bins[i] = NULL;
+//    // We insert the elements from array A to the bins array
+//    for(i = 0; i < n; i++)
+//        insert(bins[A[i]], A[i]);
+//
+//    i = 0, j = 0;
+//    // Delete and copy the elements back to the array A
+//    while(i < max + 1){
+//        while(bins[i] != nullptr)
+//            A[j++] = delete(bin[i]);
+//        i++;
+//    }
+//}
 
-    i = 0, j = 0;
-    // Delete and copy the elements back to the array A
-    while(i < max + 1){
-        while(bins[i] != nullptr)
-            A[j++] = delete(bin[i]);
-        i++;
+int countDigits(int x){
+    int count = 0;
+    while (x != 0){
+        x = x / 10;
+        count++;
+    }
+    return count;
+}
+
+void initializeBins(Node** p, int n){
+    for (int i=0; i<n; i++){
+        p[i] = nullptr;
     }
 }
 
+int getBinIndex(int x, int idx){
+    return (int)(x / pow(10, idx)) % 10;
+}
+
 void radixSort(int A[], int n){
+    int max = Max(A, n);
+    int nPass = countDigits(max);
     
+    // Create bins array
+    Node** bins = new Node* [10];
+    
+    // Initialize bins array with nullptr
+    initializeBins(bins, 10);
+    
+    // Update bins and A for nPass times
+    for (int pass=0; pass<nPass; pass++){
+        
+        // Update bins based on A values
+        for (int i=0; i<n; i++){
+            int binIdx = getBinIndex(A[i], pass);
+            Insert(bins, A[i], binIdx);
+        }
+        
+        // Update A with sorted elements from bin
+        int i = 0;
+        int j = 0;
+        while (i < 10){
+            while (bins[i] != nullptr){
+                A[j++] = Delete(bins, i);
+            }
+            i++;
+        }
+        // Initialize bins with nullptr again
+        initializeBins(bins, 10);
+    }
+    
+    // Delete heap memory
+    delete [] bins;
+    
+    for(int i = 0; i < n; i++)
+        printf("%d ",A[i]);
+    cout << endl;
 }
 
 int main() {
-    int A[] = {6, 3, 9, 10, 15, 6, 8, 12, 3, 6};
-    countSort(A, 10);
+    int A[] = {237, 146, 259, 348, 152, 163, 235, 48, 36, 62};
+    radixSort(A, 10);
     return 0;
 }
