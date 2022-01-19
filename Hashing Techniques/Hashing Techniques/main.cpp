@@ -57,5 +57,6 @@ int main() {
     Insert(HT,25);
     Insert(HT,35);
     Insert(HT,26);
+    printf("\nKey found at index %d\n",Search(HT,35));
     return 0;
 }
