@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Node.h"
+#define SIZE 10
 using namespace std;
 
 int hashFunction(int key){
@@ -18,15 +19,43 @@ void insert(struct Node *H[], int key){
     SortedInsert(&H[index],key);
 }
 
+int hashing(int key){
+    return key%SIZE;
+}
+
+int probe(int H[],int key){
+    int index=hashing(key);
+    int i=0;
+    while(H[(index+i)%SIZE]!=0)
+        i++;
+    return (index+i)%SIZE;
+}
+
+void Insert(int H[],int key){
+    int index=hashing(key);
+    
+    if(H[index]!=0)
+        index=probe(H,key);
+    H[index]=key;
+}
+
+int Search(int H[],int key){
+    int index=hashing(key);
+    
+    int i=0;
+    
+    while(H[(index+i)%SIZE]!=key)
+        i++;
+    
+    return (index+i)%SIZE;
+}
+
 int main() {
-    struct Node *hashTable[10];
-    int i;
+    int HT[10]={0};
     
-    for(i=0;i<10;i++)
-        hashTable[i]=NULL;
-    
-    insert(hashTable,12);
-    insert(hashTable,22);
-    insert(hashTable,42);
+    Insert(HT,12);
+    Insert(HT,25);
+    Insert(HT,35);
+    Insert(HT,26);
     return 0;
 }
