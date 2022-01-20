@@ -19,12 +19,8 @@ void insert(struct Node *H[], int key){
     SortedInsert(&H[index],key);
 }
 
-int hashing(int key){
-    return key%SIZE;
-}
-
 int probe(int H[],int key){
-    int index=hashing(key);
+    int index=hashFunction(key);
     int i=0;
     while(H[(index+i)%SIZE]!=0)
         i++;
@@ -32,7 +28,7 @@ int probe(int H[],int key){
 }
 
 void Insert(int H[],int key){
-    int index=hashing(key);
+    int index=hashFunction(key);
     
     if(H[index]!=0)
         index=probe(H,key);
@@ -40,7 +36,7 @@ void Insert(int H[],int key){
 }
 
 int Search(int H[],int key){
-    int index=hashing(key);
+    int index=hashFunction(key);
     
     int i=0;
     
@@ -50,6 +46,15 @@ int Search(int H[],int key){
     return (index+i)%SIZE;
 }
 
+int QuadraticProbe(int H[], int key){
+    int idx = hashFunction(key);
+    int i = 0;
+    while (H[(idx+i*i) % SIZE] != 0){
+        i++;
+    }
+    return (idx + i*i) % SIZE;
+}
+
 int main() {
     int HT[10]={0};
     
@@ -57,6 +62,6 @@ int main() {
     Insert(HT,25);
     Insert(HT,35);
     Insert(HT,26);
-    printf("\nKey found at index %d\n",Search(HT,35));
+    printf("Key found at index %d\n",Search(HT,35));
     return 0;
 }
