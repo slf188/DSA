@@ -8,6 +8,9 @@
 #include <iostream>
 using namespace std;
 
+void breadthFirstSearch(){
+}
+
 int main() {
     
     return 0;
