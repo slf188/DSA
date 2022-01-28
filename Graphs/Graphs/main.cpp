@@ -37,6 +37,10 @@ void breadthFirstSearch(int vertix, int A[][8], int n){
     cout << endl;
 }
 
+void depthFirstSearch(){
+    
+}
+
 int main() {
     int A[8][8] = {
         {0, 0, 0, 0, 0, 0, 0, 0},
