@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <queue>
+#include <stack>
 using namespace std;
 
 void breadthFirstSearch(int vertix, int A[][8], int n){
@@ -14,7 +15,7 @@ void breadthFirstSearch(int vertix, int A[][8], int n){
     queue<int> q;
     int u;
     // Visit the starting vertex
-    cout << vertix;
+    cout << vertix << " ";
     // Mark is as visited
     visited[vertix] = 1;
     // Enqueue the vertex in the queue
@@ -29,7 +30,7 @@ void breadthFirstSearch(int vertix, int A[][8], int n){
             // Check if it has been visited or not
             if(A[u][v]==1 && visited[v]==0){
                 // Visit and enqueue the vertex
-                cout << v;
+                cout << v << " ";
                 visited[v] = 1;
                 q.emplace(v);
             }
@@ -37,8 +38,26 @@ void breadthFirstSearch(int vertix, int A[][8], int n){
     cout << endl;
 }
 
-void depthFirstSearch(){
+void depthFirstSearch(int vertex, int A[][8], int n){
+    int u;
+    int visited[8] {0};
+    stack<int> stk;
+    stk.emplace(vertex);
     
+    while(!stk.empty()){
+        u = stk.top();
+        stk.pop();
+        if(visited[vertex] != 1){
+            cout << vertex << " ";
+            visited[vertex] = 1;
+            
+            for (int v=n-1; v>=0; v--){
+                if (A[vertex][v] == 1 && visited[v] == 0){
+                    stk.emplace(v);
+                }
+            }
+        }
+    }
 }
 
 int main() {
@@ -53,11 +72,9 @@ int main() {
         {0, 0, 0, 0, 0, 1, 0, 0}
     };
     
-    cout << "Vertex: 1 -> " << flush;
-    breadthFirstSearch(1, A, 8);
-    
-    cout << "Vertex: 4 -> " << flush;
-    breadthFirstSearch(4, A, 8);
-    
+    int u = 5;
+    cout << "dfs Vertex: " << u << " -> " << flush;
+    depthFirstSearch(u, A, 8);
+    cout << endl;
     return 0;
 }
