@@ -12,3 +12,5 @@ The topics reviewed are:
 * Hashing
 * Recursion
 * Sorting
+## Project Status
+I have finished implementing most of the data structures and algorithms, now I'm getting some extra practice with a few books and problems.
